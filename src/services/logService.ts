@@ -7,10 +7,10 @@ const createLogger = (config: ILoggerConfig): ILogger => {
     error: 2,
   };
 
-  const logLevel = logLevels[config.logLevel];
+  const configLogLevel = logLevels[config.logLevel];
 
   function write(logLevel: number, msg: string) {
-    if (logLevel >= logLevel) {
+    if (logLevel >= configLogLevel) {
       console.log(`log service: ${msg}`);
     }
   }
