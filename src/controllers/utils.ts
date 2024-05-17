@@ -7,3 +7,15 @@ export function parseBooleanQueryParam(value: string | undefined): boolean | und
   if (value === undefined) return false;
   return value.toLowerCase() === 'true';
 }
+
+/**
+ * Parses a string as a number and returns undefined if the input is invalid.
+ * @param value - The string value to parse.
+ * @returns The parsed number or undefined if invalid.
+ */
+export function parseNumberParam(value: string | undefined): number | undefined {
+  if (value === undefined) return undefined;
+
+  const numberValue = Number(value);
+  return isNaN(numberValue) ? undefined : numberValue;
+}

@@ -4,3 +4,4 @@ import * as controller from "../controllers/categoryController";
 export const categoriesRouter = Router();
 
 categoriesRouter.get("/", controller.getAll);
+categoriesRouter.get("/:id", controller.getById);
