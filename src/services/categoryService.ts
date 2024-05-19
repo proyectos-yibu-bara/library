@@ -1,5 +1,6 @@
 import { ICategory, ICategoryData } from "../interfaces/category";
 import * as categoriesQuery from "../data/categoryQuery";
+import * as categoriesCommand from "../data/categoryCommand";
 
 export const getAll = async (includeInactives: boolean): Promise<ICategory[]> => {
   const categories = await categoriesQuery.getAllCategories(includeInactives);
@@ -11,10 +12,7 @@ export const getById = async (id: number): Promise<ICategory | undefined> => {
   return category;
 };
 
-export const updateById = async (id: number, params: ICategoryData): Promise<ICategory | undefined> => {
-  if (id == 1) {
-    return undefined;
-  }
-
-  
+export const add = async (params: ICategoryData): Promise<ICategory | undefined> => {
+  const newCategory = await categoriesCommand.addCategory(params);
+  return newCategory;
 };

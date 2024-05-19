@@ -65,3 +65,40 @@ describe("GET /categories/:id", () => {
             });
     });
 });
+
+describe("POST /categories", () => {
+    it("should create a new category and return 201 CREATED", async () => {
+        const newCategory = {
+            title: "title test",
+            active: true,
+        };
+
+        const response = await request(app)
+            .post("/categories")
+            .send(newCategory)
+            .expect(201);
+        
+        expect(response.body.data.category).toEqual({
+            id: expect.any(Number), // El ID debe ser un número
+            title: newCategory.title,
+            active: Boolean(newCategory.active),
+        });
+    });
+    
+    it("should try to create a new category and return 400 BAD REQUEST due to already exists", async () => {
+        const newCategory = {
+            title: "title test",
+            active: "true",
+        };
+
+        const response = await request(app)
+            .post("/categories")
+            .send(newCategory)
+            .expect(400);
+        
+        expect(response.body).toEqual({
+            data: null,
+            message: "Category already exists",
+        });
+    });
+});

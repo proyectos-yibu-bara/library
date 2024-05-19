@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import services from '../services';
-import { parseBooleanQueryParam, parseNumberParam } from './utils';
+import { 
+  parseValueAsBoolean, 
+  parseValueAsNumber, 
+  parseValueAsNotEmptyString,
+} from './utils';
 
 /**
  * GET /
@@ -10,7 +14,7 @@ export const getAll = async (req: Request, res: Response): Promise<void> => {
   
   const { includeInactives } = req.query;
   
-  const booleanIncludeInactives = parseBooleanQueryParam(includeInactives as string);
+  const booleanIncludeInactives = parseValueAsBoolean(includeInactives as string);
 
   if (booleanIncludeInactives == undefined) {
     res.status(400).json({
@@ -39,7 +43,7 @@ export const getAll = async (req: Request, res: Response): Promise<void> => {
 export const getById = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
 
-  const numberId = parseNumberParam(id);
+  const numberId = parseValueAsNumber(id);
 
   if (numberId === undefined || numberId <= 0)
   {
@@ -69,37 +73,38 @@ export const getById = async (req: Request, res: Response): Promise<void> => {
 };
 
 /**
- * PUT /:id
- * Update category by id.
+ * POST /
+ * Create a category.
  */
-export const updateById = async (req: Request, res: Response): Promise<void> => {
-  const { id } = req.params;
+export const add = async (req: Request, res: Response): Promise<void> => {
   const { title, active } = req.body;
-  const numberId = parseNumberParam(id);
 
-  if (numberId === undefined) {
+  const booleanActive = parseValueAsBoolean(active as string);
+  const stringTitle = parseValueAsNotEmptyString(title);
+
+  if (booleanActive === undefined || stringTitle === undefined) {
     res.status(400).json({
-      message: "Invalid id",
+      message: "There are invalid params",
       data: null,
     });
     return;
   }
 
-  services.log.info(`numberId -> ${numberId}`);
+  services.log.info(`Creating new category -> ${title}`);
 
   try {
-    const updatedCategory = await services.category.updateById(numberId, { title, active });
+    const newCategory = await services.category.add({ title: stringTitle, active: booleanActive });
 
-    if (updatedCategory === null) {
-      res.status(404).json({
-        message: "Category not found",
+    if (newCategory === undefined) {
+      res.status(400).json({
+        message: "Category already exists",
         data: null,
       });
       return;
     }
 
-    res.status(200).json({
-      data: updatedCategory,
+    res.status(201).json({
+      data: { category: newCategory },
     });
   } catch (error) {
     res.status(500).json({
