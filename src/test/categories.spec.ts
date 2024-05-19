@@ -25,3 +25,43 @@ describe("GET /categories", () => {
             });
     });
 });
+
+describe("GET /categories/:id", () => {
+    it("should return 200 OK", () => {
+        return request(app).get("/categories/1").expect(200);
+    });
+
+    it("should return 404 NOT FOUND", () => {
+        return request(app)
+            .get("/categories/4000")
+            .expect(404);
+    });
+
+    it("should return 400 BAD REQUEST due to negative number", () => {
+        return request(app)
+            .get("/categories/-1")
+            .expect(400)
+            .expect(res => {
+                const errorMessage = "Invalid id";
+                if (res.body.message !== errorMessage) {
+                    throw new Error(
+                        `Expected ${errorMessage} but got ${res.body.message}`,
+                    );
+                }
+            });
+    });
+    
+    it("should return 400 BAD REQUEST due to invalid number", () => {
+        return request(app)
+            .get("/categories/jajajaja")
+            .expect(400)
+            .expect(res => {
+                const errorMessage = "Invalid id";
+                if (res.body.message !== errorMessage) {
+                    throw new Error(
+                        `Expected ${errorMessage} but got ${res.body.message}`,
+                    );
+                }
+            });
+    });
+});

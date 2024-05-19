@@ -41,7 +41,7 @@ export const getById = async (req: Request, res: Response): Promise<void> => {
 
   const numberId = parseNumberParam(id);
 
-  if (numberId === undefined)
+  if (numberId === undefined || numberId <= 0)
   {
     res.status(400).json({
       message: "Invalid id", 
