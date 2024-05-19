@@ -11,6 +11,14 @@ export const getAll = async (req: Request, res: Response): Promise<void> => {
   const { includeInactives } = req.query;
   
   const booleanIncludeInactives = parseBooleanQueryParam(includeInactives as string);
+
+  if (booleanIncludeInactives == undefined) {
+    res.status(400).json({
+      message: "Invalid parameter", 
+      data: null,
+     });
+    return;
+  }
   
   services.log.info(`booleanIncludeInactives -> ${booleanIncludeInactives}`);
 

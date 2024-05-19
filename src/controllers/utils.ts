@@ -5,7 +5,12 @@
  */
 export function parseBooleanQueryParam(value: string | undefined): boolean | undefined {
   if (value === undefined) return false;
-  return value.toLowerCase() === 'true';
+
+  const valueLowerCase = value.toLowerCase();
+
+  if (valueLowerCase !== 'true' && valueLowerCase !== 'false') return undefined;
+
+  return valueLowerCase === 'true';
 }
 
 /**
