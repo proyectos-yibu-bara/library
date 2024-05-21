@@ -101,4 +101,22 @@ describe("POST /categories", () => {
             message: "Category already exists",
         });
     });
+
+    it("should create a new category inactive and return 201 CREATED", async () => {
+        const newCategory = {
+            title: "title test inactive",
+            active: false,
+        };
+
+        const response = await request(app)
+            .post("/categories")
+            .send(newCategory)
+            .expect(201);
+        
+        expect(response.body.data.category).toEqual({
+            id: expect.any(Number),
+            title: newCategory.title,
+            active: false,
+        });
+    });
 });
