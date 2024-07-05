@@ -25,12 +25,16 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "dotenv": "^16.4.5",
         "express": "^4.16.2",
         "http-errors": "^1.7.1",
         "morgan": "^1.9.1",
-        "pug": "^3.0.1"
+        "mysql2": "^3.10.2",
+        "pug": "^3.0.1",
+        "sequelize": "^6.37.3"
     },
     "devDependencies": {
+        "@types/babel__core": "^7.20.5",
         "@types/express": "4.17.21",
         "@types/http-errors": "1.8.2",
         "@types/jest": "26.0.24",

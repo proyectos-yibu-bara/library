@@ -1,4 +1,5 @@
 import { app } from "./app";
+import "./config/db";
 
 const port = app.get("port");
 
