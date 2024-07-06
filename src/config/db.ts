@@ -30,7 +30,7 @@ const getInstance = () : Sequelize => {
     const sequelize = getInstance();
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
-    await sequelize.sync();
+    await sequelize.sync({ force: false });
     console.log('Database synced successfully.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
