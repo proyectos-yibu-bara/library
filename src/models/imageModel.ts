@@ -34,7 +34,7 @@ Image.init(
     },
   },
   {
-    tableName: 'images',
+    tableName: 'image',
     sequelize,
     timestamps: false,
   },

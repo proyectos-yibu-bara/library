@@ -34,7 +34,7 @@ BookAuthor.init(
     },
   },
   {
-    tableName: 'book_authors',
+    tableName: 'book_author',
     sequelize,
     timestamps: false,
   },

@@ -34,7 +34,7 @@ Category.init(
     },
   },
   {
-    tableName: 'categories',
+    tableName: 'category',
     sequelize,
     timestamps: false,
   },

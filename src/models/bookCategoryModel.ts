@@ -34,7 +34,7 @@ BookCategory.init(
     },
   },
   {
-    tableName: 'book_categories',
+    tableName: 'book_category',
     sequelize,
     timestamps: false,
   },

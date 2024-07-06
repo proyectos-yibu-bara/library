@@ -34,7 +34,7 @@ BookImage.init(
     },
   },
   {
-    tableName: 'book_images',
+    tableName: 'book_image',
     sequelize,
     timestamps: false,
   },

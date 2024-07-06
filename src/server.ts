@@ -1,5 +1,6 @@
 import { app } from "./app";
 import "./config/db";
+import "./models/index";
 
 const port = app.get("port");
 
