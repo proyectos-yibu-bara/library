@@ -10,7 +10,7 @@ const addCategory = async (categoryData: ICategoryData): Promise<ICategory> => {
 const updateCategory = async (
     categoryId: number,
     categoryData: ICategoryData,
-): Promise<Category> => {
+): Promise<ICategory | null> => {
     const category = await categoryQueryService.getCategoryById(categoryId);
 
     if (category == null) return null;

@@ -12,23 +12,8 @@ import {
  */
 export const getAll = async (req: Request, res: Response): Promise<void> => {
   
-  const { includeInactives } = req.query;
-  
-  const booleanIncludeInactives = parseValueAsBoolean(includeInactives as string);
+  const categories = await services.category.getAll();
 
-  if (booleanIncludeInactives == undefined) {
-    res.status(400).json({
-      message: "Invalid parameter", 
-      data: null,
-     });
-    return;
-  }
-  
-  services.log.info(`booleanIncludeInactives -> ${booleanIncludeInactives}`);
-
-  const categories = await services.category.getAll(booleanIncludeInactives);
-
-  
   res.json({ 
     data: {
       categories,
@@ -77,23 +62,16 @@ export const getById = async (req: Request, res: Response): Promise<void> => {
  * Create a category.
  */
 export const add = async (req: Request, res: Response): Promise<void> => {
-  const { title, active } = req.body;
+  const { title, description } = req.body;
 
-  const booleanActive = parseValueAsBoolean(active as string);
   const stringTitle = parseValueAsNotEmptyString(title);
+  const stringDescription = parseValueAsNotEmptyString(description);
 
-  if (booleanActive === undefined || stringTitle === undefined) {
-    res.status(400).json({
-      message: "There are invalid params",
-      data: null,
-    });
-    return;
-  }
 
   services.log.info(`Creating new category -> ${title}`);
 
   try {
-    const newCategory = await services.category.add({ title: stringTitle, active: booleanActive });
+    const newCategory = await services.category.add({ title: stringTitle, description: stringDescription });
 
     if (newCategory === undefined) {
       res.status(400).json({

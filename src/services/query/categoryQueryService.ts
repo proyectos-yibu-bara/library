@@ -1,6 +1,6 @@
 import { Category } from '../../models';
 
-const getAllCategories = async (includeInactives: boolean): Promise<Category[]> => {
+const getAllCategories = async (): Promise<Category[]> => {
   const categories = await Category.findAll();
   return categories;
 };
