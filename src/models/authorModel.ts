@@ -1,17 +1,12 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { getInstance } from '../config/db.js';
+import { IAuthor } from '../interfaces/author.js';
 
 const sequelize = getInstance();
 
-interface AuthorAttributes {
-  authorId: number;
-  name: string;
-  birthday: Date;
-}
+interface AuthorCreationAttributes extends Optional<IAuthor, 'authorId'> {}
 
-interface AuthorCreationAttributes extends Optional<AuthorAttributes, 'authorId'> {}
-
-class Author extends Model<AuthorAttributes, AuthorCreationAttributes> implements AuthorAttributes {
+class Author extends Model<IAuthor, AuthorCreationAttributes> implements IAuthor {
   public authorId!: number;
   public name!: string;
   public birthday!: Date;
