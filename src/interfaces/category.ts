@@ -1,8 +1,8 @@
 export interface ICategoryData {
   title: string,
-  active: boolean
+  description: string
 }
 
 export interface ICategory extends ICategoryData {
-  id: number
+  categoryId: number
 }

@@ -1,20 +1,15 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { getInstance } from '../config/db.js';
+import { ICategory } from '../interfaces/category.js';
 
 const sequelize = getInstance();
 
-interface CategoryAttributes {
-  categoryId: number;
-  title: string;
-  name: string;
-}
+interface CategoryCreationAttributes extends Optional<ICategory, 'categoryId'> {}
 
-interface CategoryCreationAttributes extends Optional<CategoryAttributes, 'categoryId'> {}
-
-class Category extends Model<CategoryAttributes, CategoryCreationAttributes> implements CategoryAttributes {
+class Category extends Model<ICategory, CategoryCreationAttributes> implements ICategory {
   public categoryId!: number;
   public title!: string;
-  public name!: string;
+  public description!: string;
 }
 
 Category.init(
@@ -28,7 +23,7 @@ Category.init(
       type: new DataTypes.STRING(128),
       allowNull: false,
     },
-    name: {
+    description: {
       type: new DataTypes.STRING(128),
       allowNull: false,
     },
