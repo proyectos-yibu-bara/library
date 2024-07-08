@@ -37,3 +37,16 @@ export function parseValueAsNotEmptyString(value: string | undefined): string | 
   }
   return value;
 }
+
+/**
+ * Parses a value as a Date object.
+ * @param value - The string value to parse.
+ * @returns The Date object or undefined if invalid.
+ */
+export const parseValueAsDate = (value: string): Date | undefined => {
+  const date = new Date(value);
+  
+  if (isNaN(date.getTime())) return undefined;
+  
+  return date;
+};

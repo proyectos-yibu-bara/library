@@ -1,5 +1,6 @@
 import configLog from './logService';
 import * as category from './categoryService';
+import * as author from './authorService';
 
 
 /**
@@ -10,4 +11,5 @@ const log = configLog({ logLevel: 'debug' });
 export default {
   log,
   category,
+  author,
 };
